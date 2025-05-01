@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -fPIC  -g -rdynamic CMakeFiles/gpo_01_index.dir/src/GPO_01_index.cpp.o CMakeFiles/gpo_01_index.dir/src/GPO_aux.cpp.o CMakeFiles/gpo_01_index.dir/libs/glad/src/glad.c.o -o bin/gpo_01_index  -lOpenGL -lGLX libs/glfw/src/libglfw3.a -lpthread -lrt -lm -ldl 

@@ -143,7 +143,7 @@ void check_errores_programa(GLuint id)
  printf("---------------------------------------------\n");
 }
 
-
+/*
 GLuint Compile_Link_Shaders(const char* vertexShader_source,const char*fragmentShader_source)
 {
 	// Compile Shaders
@@ -167,6 +167,39 @@ GLuint Compile_Link_Shaders(const char* vertexShader_source,const char*fragmentS
 	
 
     return ProgramID;
+}
+*/
+GLuint Compile_Link_Shaders(const char* vertexShader_source,
+	const char* fragmentShader_source,
+	const char* tcsShader_source,
+	const char* tesShader_source)
+{
+GLuint VertexShaderID   = compilar_shader(vertexShader_source, GL_VERTEX_SHADER);
+GLuint FragmentShaderID = compilar_shader(fragmentShader_source, GL_FRAGMENT_SHADER);
+
+GLuint TCSShaderID = 0;
+GLuint TESShaderID = 0;
+
+if (tcsShader_source) TCSShaderID = compilar_shader(tcsShader_source, GL_TESS_CONTROL_SHADER);
+if (tesShader_source) TESShaderID = compilar_shader(tesShader_source, GL_TESS_EVALUATION_SHADER);
+
+GLuint ProgramID = glCreateProgram();
+
+glAttachShader(ProgramID, VertexShaderID);
+glAttachShader(ProgramID, FragmentShaderID);
+if (TCSShaderID) glAttachShader(ProgramID, TCSShaderID);
+if (TESShaderID) glAttachShader(ProgramID, TESShaderID);
+
+glLinkProgram(ProgramID);
+check_errores_programa(ProgramID);
+
+// Limpieza
+glDetachShader(ProgramID, VertexShaderID); glDeleteShader(VertexShaderID);
+glDetachShader(ProgramID, FragmentShaderID); glDeleteShader(FragmentShaderID);
+if (TCSShaderID) { glDetachShader(ProgramID, TCSShaderID); glDeleteShader(TCSShaderID); }
+if (TESShaderID) { glDetachShader(ProgramID, TESShaderID); glDeleteShader(TESShaderID); }
+
+return ProgramID;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -35,9 +35,23 @@
 
 using namespace glm;
 
+// gui_system.h
+#ifndef GUI_SYSTEM_H
+#define GUI_SYSTEM_H
+
+#include <GLFW/glfw3.h>
+
+extern float tessellationFactor;
+
+void init_gui(GLFWwindow* window);
+void render_gui();
+void shutdown_gui();
+
+#endif // GUI_SYSTEM_H
+
 
 // DEclaraciones  de tipos
-typedef struct {GLuint VAO; GLuint Ni; GLuint Nv; GLuint Nt; GLuint tipo_indice; } objeto;
+typedef struct {GLuint VAO; GLuint Ni; GLuint Nv; GLuint Nt; GLuint tipo_indice;} objeto;
 
 
 /// DECLARACIONES DE FUNCIONES AUXILIARES
@@ -50,7 +64,7 @@ void vuelca_mat4(mat4 M);
 void check_errores_programa(GLuint);
 GLuint compilar_shader(const char*, GLuint);
 GLuint link_programa(GLuint, GLuint);
-GLuint Compile_Link_Shaders(const char*, const char*);
+GLuint Compile_Link_Shaders(const char*, const char*,const char* tcsShader_source = nullptr,const char* tesShader_source = nullptr);
 char* leer_codigo_de_fichero(const char*);
 
 

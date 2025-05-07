@@ -163,7 +163,7 @@ void render_scene() {
 
     mat4 T, R, S;
 
-    M = rotate(30.0f, vec3(0.0f, 0.0f, 1.0f));
+    
 
     transfer_mat4("MVP", Proy * View * M);
     dibujar_indexado(obj1);

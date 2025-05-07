@@ -545,12 +545,12 @@ CMakeFiles/gpo_04_entrega.dir/clean:
 CMakeFiles/gpo_proyecto_final.dir/all: libs/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpo_proyecto_final.dir/build.make CMakeFiles/gpo_proyecto_final.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/gpo_proyecto_final.dir/build.make CMakeFiles/gpo_proyecto_final.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=71,72,73,74 "Built target gpo_proyecto_final"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=71,72,73,74,75,76,77,78,79,80 "Built target gpo_proyecto_final"
 .PHONY : CMakeFiles/gpo_proyecto_final.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/gpo_proyecto_final.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles 21
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles 27
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/gpo_proyecto_final.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles 0
 .PHONY : CMakeFiles/gpo_proyecto_final.dir/rule

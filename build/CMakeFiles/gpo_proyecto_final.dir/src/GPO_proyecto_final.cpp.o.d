@@ -345,4 +345,9 @@ CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o: \
  /usr/include/c++/9/bits/locale_facets.tcc \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
- /usr/include/c++/9/bits/istream.tcc
+ /usr/include/c++/9/bits/istream.tcc \
+ /home/juanito/Documents/UPM/GpO/GpO_Project/include/stb/stb_image.h \
+ /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui.h \
+ /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imconfig.h \
+ /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_glfw.h \
+ /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_opengl3.h

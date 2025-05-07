@@ -28,6 +28,8 @@ add_subdirectory(libs/glad )
 include_directories(libs/glad/include)
 include_directories(libs/glm)
 
+include_directories(libs/imgui)
+include_directories(libs/imgui/backends)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/KHR)
 include_directories(${PROJECT_SOURCE_DIR}/include/stb)
@@ -120,14 +122,26 @@ target_link_libraries(gpo_04 PRIVATE ${OPENGL_LIBRARIES} glfw glm glad_interface
 set(GPO_SOURCE_FILES include/stb/stb_image.h
 					 include/GpO.h
 					 src/GPO_04_entrega.cpp
-					 src/GPO_aux.cpp)
+					 src/GPO_aux.cpp
+					 )
 add_executable(gpo_04_entrega ${GPO_SOURCE_FILES})
 target_link_libraries(gpo_04_entrega PRIVATE ${OPENGL_LIBRARIES} glfw glm glad_interface)
 
 set(GPO_SOURCE_FILES include/stb/stb_image.h
 					 include/GpO.h
+
+
+					 libs/imgui/imgui.cpp
+					 libs/imgui/imgui_draw.cpp
+					 libs/imgui/imgui_widgets.cpp
+					 libs/imgui/imgui_tables.cpp
+					 libs/imgui/backends/imgui_impl_glfw.cpp
+					 libs/imgui/backends/imgui_impl_opengl3.cpp
+
+
 					 src/GPO_proyecto_final.cpp
-					 src/GPO_aux.cpp)
+					 src/GPO_aux.cpp
+					 )
 add_executable(gpo_proyecto_final ${GPO_SOURCE_FILES})
 target_link_libraries(gpo_proyecto_final PRIVATE ${OPENGL_LIBRARIES} glfw glm glad_interface assimp)
 find_package(assimp REQUIRED)

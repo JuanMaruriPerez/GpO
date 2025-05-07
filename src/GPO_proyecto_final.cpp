@@ -9,6 +9,12 @@ ATG, 2019
 #include <assimp/postprocess.h>
 #include <iostream>
 
+#include <stb_image.h>
+
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+
 // Tamaño ventana y titulo
 int ANCHO = 1600, ALTO = 1200;  
 const char* prac = "Visualizador Interactivo con OpenGL (GpO)";   // Nombre de la practica (aparecera en el titulo de la ventana).
@@ -18,113 +24,263 @@ const char* prac = "Visualizador Interactivo con OpenGL (GpO)";   // Nombre de l
 ////////////     CODIGO SHADERS 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define GLSL(src) "#version 330 core\n" #src
+#define GLSL(src) "#version 450 core\n" #src
 
-const char* vertex_prog = GLSL(
-layout(location = 0) in vec3 pos; 
-layout(location = 1) in vec3 color;
-out vec3 col;
-uniform mat4 MVP=mat4(1.0f);
-void main()
- {
-  gl_Position = MVP*vec4(pos,1); // Construyo coord homog�neas y aplico matriz transformacion M
-  col = color;                             // Paso color a fragment shader
- }
+
+
+// TO-DO
+/**
+ * 
+ * Shader de iluminación Blinn-Phong.
+ * 
+ * Shader de silueta con caras traseras.
+ *
+ * Configuración OpenGL para las dos pasadas.
+ */
+
+const char* vertex_shader = GLSL(
+    layout(location = 0) in vec3 pos;
+    layout(location = 1) in vec2 uv;
+
+    uniform mat4 MVP; 
+
+    out vec2 vUV;
+
+    void main() {
+        gl_Position = MVP * vec4(pos, 1.0);
+        vUV = uv;
+    }
 );
 
-const char* fragment_prog = GLSL(
-in vec3 col;
-out vec3 outputColor;
-void main() 
- {
-	outputColor = col;
- }
+const char* tcs_shader = GLSL(
+    layout(vertices = 3) out;
+    in vec2 vUV[];             // Recibe del vertex shader
+    out vec2 vUV_TCS[];   
+
+    uniform float tessellationFactor;
+
+    void main() {
+
+        gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;
+
+        vUV_TCS[gl_InvocationID] = vUV[gl_InvocationID];
+
+        if (gl_InvocationID == 0) {
+            gl_TessLevelOuter[0] = tessellationFactor;
+            gl_TessLevelOuter[1] = tessellationFactor;
+            gl_TessLevelOuter[2] = tessellationFactor;
+            gl_TessLevelInner[0] = tessellationFactor;
+        }
+    }
 );
+
+const char* tes_shader = GLSL(
+    layout(triangles, equal_spacing, cw) in;
+    in vec2 vUV_TCS[];          // Recibe desde VS
+    out vec2 uv;           // Envía al FS
+
+    void main() {
+        // gl_TessCoord = (u, v, w) baricéntricas dentro del triángulo
+        vec3 bary = gl_TessCoord;
+    
+        // Interpolación lineal de posición en base a coordenadas baricéntricas
+        vec4 p0 = gl_in[0].gl_Position;
+        vec4 p1 = gl_in[1].gl_Position;
+        vec4 p2 = gl_in[2].gl_Position;
+    
+        gl_Position = bary.x * p0 + bary.y * p1 + bary.z * p2;
+
+        // Interpolación de UVs
+        uv = bary.x * vUV_TCS[0] + bary.y * vUV_TCS[1] + bary.z * vUV_TCS[2];
+    }
+);
+
+
+const char* fragment_shader = GLSL(
+    in vec2 uv;
+    out vec4 FragColor;
+
+    void main() {
+        // Interpolación entre azul eléctrico y púrpura según la coordenada Y
+        vec3 color1 = vec3(0.0, 0.5, 1.0); // Azul eléctrico
+        vec3 color2 = vec3(0.8, 0.5, 1.0); // Violeta intenso
+
+        // Gradiente vertical con distorsión irregular
+        float factor = fract(uv.y * 4.0 + sin(uv.x * 10.0) * 0.1);
+
+        vec3 finalColor = mix(color1, color2, factor);
+        FragColor = vec4(finalColor, 1.0);
+    }
+);
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////   RENDER CODE AND DATA
+/////////////////////   GUI
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+void init_gui(GLFWwindow* window) {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void render_gui() {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("Tessellation Control");
+    ImGui::SliderFloat("SubDivision Factor", &tessellationFactor, 1.0f, 128.0f);
+    ImGui::End();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void shutdown_gui() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////   LOAD DATA
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 GLFWwindow* window;
 GLuint prog;
-objeto obj;
+objeto obj_trunk, obj_leafs;
+float tessellationFactor = 1.0f;  // valor inicial
 
-
-
-objeto cargar_objeto(const char* ruta)
-{
-    Assimp::Importer importador;
+const aiScene* cargar_escena(const char* ruta, Assimp::Importer& importador) {
     const aiScene* escena = importador.ReadFile(ruta,
         aiProcess_Triangulate |
         aiProcess_JoinIdenticalVertices |
-        aiProcess_GenSmoothNormals |
-        aiProcess_ValidateDataStructure |
-        aiProcess_ImproveCacheLocality |
-        aiProcess_RemoveRedundantMaterials |
-        aiProcess_OptimizeMeshes |
-        aiProcess_OptimizeGraph);
+        aiProcess_GenSmoothNormals);
 
     if (!escena || escena->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !escena->mRootNode) {
         printf("ERROR::ASSIMP:: %s\n", importador.GetErrorString());
         exit(-1);
     }
+    return escena;
+}
 
+void contar_vertices_caras(aiMesh* malla, int& Nv_total, int& Nf_total) {
+    Nv_total = malla->mNumVertices;
+    Nf_total = malla->mNumFaces;
+}
+
+void procesar_mallas(const aiScene* escena, float* vertices, float* colores, unsigned int* indices, int& Ni_total) {
     aiMesh* malla = escena->mMeshes[0];
     int Nv = malla->mNumVertices;
+    int Nf = malla->mNumFaces;
 
-    float* vertices = (float*)malloc(sizeof(float) * 3 * Nv);
-    float* colores  = (float*)malloc(sizeof(float) * 3 * Nv);
+    aiColor4D color = {0.5f, 0.5f, 0.5f, 1.0f};
+    aiGetMaterialColor(escena->mMaterials[malla->mMaterialIndex], AI_MATKEY_COLOR_DIFFUSE, &color);
+
+    int v_offset = 0;
+    int i_offset = 0;
 
     for (int i = 0; i < Nv; ++i) {
         aiVector3D pos = malla->mVertices[i];
-        vertices[i * 3 + 0] = pos.x;
-        vertices[i * 3 + 1] = pos.y;
-        vertices[i * 3 + 2] = pos.z;
+        int idx = v_offset + i;
+        vertices[idx * 3 + 0] = pos.x;
+        vertices[idx * 3 + 1] = pos.y;
+        vertices[idx * 3 + 2] = pos.z;
 
-        aiColor4D color;
-        if (aiGetMaterialColor(escena->mMaterials[malla->mMaterialIndex], AI_MATKEY_COLOR_DIFFUSE, &color) == AI_SUCCESS) {
-            colores[i * 3 + 0] = color.r;
-            colores[i * 3 + 1] = color.g;
-            colores[i * 3 + 2] = color.b;
-        } else {
-            colores[i * 3 + 0] = 0.5f;
-            colores[i * 3 + 1] = 0.5f;
-            colores[i * 3 + 2] = 0.5f;
+        colores[idx * 3 + 0] = color.r;
+        colores[idx * 3 + 1] = color.g;
+        colores[idx * 3 + 2] = color.b;
+    }
+
+    for (int i = 0; i < Nf; ++i) {
+        aiFace face = malla->mFaces[i];
+        if (face.mNumIndices == 3) {
+            unsigned int idx0 = face.mIndices[0] + v_offset;
+            unsigned int idx1 = face.mIndices[1] + v_offset;
+            unsigned int idx2 = face.mIndices[2] + v_offset;
+
+            indices[i_offset * 3 + 0] = idx0;
+            indices[i_offset * 3 + 1] = idx1;
+            indices[i_offset * 3 + 2] = idx2;
+            ++i_offset;
         }
     }
 
-    GLuint VAO, VBO_pos, VBO_col;
+    Ni_total = i_offset * 3;
+}
+
+
+objeto crear_buffers_opengl(float* vertices, float* colores, unsigned int* indices, int Nv_total, int Ni_total) {
+    GLuint VAO, VBO_pos, VBO_col, EBO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
     glGenBuffers(1, &VBO_pos);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_pos);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * Nv, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * Nv_total, vertices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
     glGenBuffers(1, &VBO_col);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_col);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * Nv, colores, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * Nv_total, colores, GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-    glBindVertexArray(0);
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Ni_total, indices, GL_STATIC_DRAW);
 
-    free(vertices);
-    free(colores);
+    glBindVertexArray(0);
 
     objeto obj;
     obj.VAO = VAO;
-    obj.Nv = Nv;
+    obj.Ni = Ni_total;
+    obj.Nv = Nv_total;
+    obj.tipo_indice = GL_UNSIGNED_INT;
+
+    return obj;
+}
+
+objeto cargar_objeto(const char* ruta) {
+    Assimp::Importer importador;
+    const aiScene* escena = cargar_escena(ruta, importador);
+
+    int Nv_total, Nf_total;
+    contar_vertices_caras(escena->mMeshes[0], Nv_total, Nf_total);
+
+    float* vertices = (float*)malloc(sizeof(float) * 3 * Nv_total);
+    float* colores = (float*)malloc(sizeof(float) * 3 * Nv_total);
+    unsigned int* indices = (unsigned int*)malloc(sizeof(unsigned int) * 3 * Nf_total);
+
+    int Ni_total;
+    procesar_mallas(escena, vertices, colores, indices, Ni_total);
+
+    objeto obj = crear_buffers_opengl(vertices, colores, indices, Nv_total, Ni_total);
+
+    free(vertices);
+    free(colores);
+    free(indices);
+
     return obj;
 }
 
 
-// Preparaci�n de los datos de los objetos a dibujar, envialarlos a la GPU
-// Compilaci�n programas a ejecutar en la tarjeta gr�fica:  vertex shader, fragment shaders
-// Opciones generales de render de OpenGL
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////   RENDER CODE 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void init_scene()
 {
@@ -132,27 +288,32 @@ void init_scene()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height); 
     
-	obj =  cargar_objeto("./data/CartoonTree_v2.obj");  // Preparar datos de objeto, mandar a GPU
+	obj_trunk =  cargar_objeto("./data/Trunk_v3.obj");  
+    obj_leafs = cargar_objeto("./data/Leafs_v2.obj");
 
-	// Mandar programas a GPU, compilar y crear programa en GPU
+    
+	prog = Compile_Link_Shaders(vertex_shader, fragment_shader, tcs_shader, tes_shader);
+    //prog = Compile_Link_Shaders(vertex_shader, fragment_shader); 
 
-	// Compilear Shaders
-	GLuint VertexShaderID = compilar_shader(vertex_prog, GL_VERTEX_SHADER);
-	GLuint FragmentShaderID = compilar_shader(fragment_prog, GL_FRAGMENT_SHADER);
+    glPatchParameteri(GL_PATCH_VERTICES, 3);
 
-	// Enlazar sharders en el programa final
-	prog = glCreateProgram();
-	glAttachShader(prog, VertexShaderID);  glAttachShader(prog, FragmentShaderID);
-	glLinkProgram(prog); check_errores_programa(prog);
+    // Bind y uso de shaders
+    glUseProgram(prog);
 
-	// Limpieza final de los shaders una vez compilado el programa
-	glDetachShader(prog, VertexShaderID);  glDeleteShader(VertexShaderID);
-	glDetachShader(prog, FragmentShaderID);  glDeleteShader(FragmentShaderID);
+    // Uniforms
+    //glUniform1f(glGetUniformLocation(prog, "tessellationFactor"), 5.0f);
+    glUniform1f(glGetUniformLocation(prog, "tessellationFactor"), tessellationFactor);
+    
 
-	// Alternativamente usar la funci�n Compile_Link_Shaders().
-	//	prog = Compile_Link_Shaders(vertex_prog, fragment_prog); 
+	//glUseProgram(prog);   
+    glEnable(GL_CULL_FACE);
+    //glCullFace(GL_FRONT);
+    glCullFace(GL_BACK);
+    //glDisable(GL_CULL_FACE);  
+    //glEnable(GL_DEPTH_TEST);
 
-	glUseProgram(prog);    // Indicamos que programa vamos a usar 
+    //GUI
+    init_gui(window);
 }
 
 float rot_arbol = 0.0f; 
@@ -169,7 +330,7 @@ float fov = 35.0f, aspect = 4.0f / 3.0f; //###float fov = 40.0f, aspect = 4.0f /
 void render_scene()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Especifica color para el fondo (RGB+alfa)
-    glClear(GL_COLOR_BUFFER_BIT);           // Aplica color asignado borrando el buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);           // Aplica color asignado borrando el buffer
 
     float t = (float)glfwGetTime();  // Contador de tiempo en segundos 
 
@@ -188,28 +349,40 @@ void render_scene()
     // Aplica desplazamiento en los tres ejes
 	T = glm::translate(glm::vec3(desplazamiento.x, desplazamiento.y, desplazamiento.z)); 
 
-    // Aplica la rotación antes de la traslación
-    //M = R * T;
 	// Model matrix: primero rotación vertical (R_y), luego giro de base (R), luego traslación
 	M = R * T * R_y;
 	
 
     transfer_mat4("MVP", P * V * M);  // Calcula MVP (Model-View-Projection)
 
-    // ORDEN de dibujar
-    glBindVertexArray(obj.VAO);              // Activamos VAO asociado al objeto
-    glDrawArrays(GL_TRIANGLES, 0, obj.Nv);   // Orden de dibujar (Nv vertices)    
-    glBindVertexArray(0);                    // Desconectamos VAO
 
-    ////////////////////////////////////////////////////////
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Activa el modo Wireframe
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    // Activamos el programa de shaders
+    glUseProgram(prog);
+
+    // ORDEN de dibujar el tronco
+    glBindVertexArray(obj_trunk.VAO);
+    glDrawElements(GL_PATCHES, obj_trunk.Ni, obj_trunk.tipo_indice, 0);
+    //glDrawElements(GL_TRIANGLES, obj_trunk.Ni, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+
+    // Dibujar las hojas
+    glBindVertexArray(obj_leafs.VAO);
+    glDrawElements(GL_PATCHES, obj_leafs.Ni, obj_trunk.tipo_indice, 0);
+    //glDrawElements(GL_TRIANGLES, obj_leafs.Ni, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+
+    // En el bucle principal:
+    render_gui();
+
 }
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// PROGRAMA PRINCIPAL
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int main(int argc, char* argv[])
 {
 	init_GLFW();            // Inicializa lib GLFW
@@ -225,6 +398,8 @@ int main(int argc, char* argv[])
 		glfwPollEvents();
 		show_info();
 	}
+    // Al cerrar la app:
+    shutdown_gui();
 
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
@@ -271,25 +446,26 @@ static void KeyCallback(GLFWwindow* window, int key, int code, int action, int m
 	fprintf(stdout, "Key %d Code %d Act %d Mode %d\n", key, code, action, mode);
 	if (key == GLFW_KEY_ESCAPE) glfwSetWindowShouldClose(window, true);
 	if (action == GLFW_PRESS || action == GLFW_REPEAT) {  // Solo hacer algo si la tecla es presionada
-		/*
-        // Movimiento con las flechas de dirección
-        if (key == GLFW_KEY_UP) {
-            desplazamiento.x -= 0.1f;  // Mover hacia arriba en el eje Y
+        if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+            if (key == GLFW_KEY_UP) {
+                tessellationFactor += 1.0f;
+            } else if (key == GLFW_KEY_DOWN) {
+                tessellationFactor = std::max(1.0f, tessellationFactor - 1.0f);  // mínimo 1
+            }
+    
+            // Actualiza el uniform en tiempo real
+            glUseProgram(prog);
+            glUniform1f(glGetUniformLocation(prog, "tessellationFactor"), tessellationFactor);
+    
+            std::cout << "Tessellation factor: " << tessellationFactor << std::endl;
         }
-        if (key == GLFW_KEY_DOWN) {
-            desplazamiento.x += 0.1f;  // Mover hacia abajo en el eje Y
-        }
-		*/
-		
         if (key == GLFW_KEY_LEFT) {
             rot_arbol += 5.0f;
         }
         if (key == GLFW_KEY_RIGHT) {
             rot_arbol -= 5.0f;  // Gira 5 grados a la derecha
         }
-		
-
-        // Imprimir el nuevo desplazamiento para depuración
+		// Imprimir el nuevo desplazamiento para depuración
         printf("Desplazamiento: x = %f, y = %f, z = %f\n", desplazamiento.x, desplazamiento.y, desplazamiento.z);
     }
 }

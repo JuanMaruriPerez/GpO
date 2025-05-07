@@ -69,10 +69,94 @@ include CMakeFiles/gpo_proyecto_final.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/gpo_proyecto_final.dir/flags.make
 
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.s
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_draw.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_draw.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_draw.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_draw.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.s
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_widgets.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_widgets.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_widgets.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_widgets.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.s
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_tables.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_tables.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_tables.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/imgui_tables.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.s
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_glfw.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_glfw.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_glfw.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_glfw.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.s
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_opengl3.cpp
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_opengl3.cpp
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_opengl3.cpp > CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.i
+
+CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/juanito/Documents/UPM/GpO/GpO_Project/libs/imgui/backends/imgui_impl_opengl3.cpp -o CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.s
+
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/src/GPO_proyecto_final.cpp
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/src/GPO_proyecto_final.cpp
 
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.i: cmake_force
@@ -86,7 +170,7 @@ CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.s: cmake_force
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o: /home/juanito/Documents/UPM/GpO/GpO_Project/src/GPO_aux.cpp
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o -MF CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o.d -o CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/src/GPO_aux.cpp
 
 CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.i: cmake_force
@@ -100,7 +184,7 @@ CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.s: cmake_force
 CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o: CMakeFiles/gpo_proyecto_final.dir/flags.make
 CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o: /home/juanito/Documents/UPM/GpO/GpO_Project/libs/glad/src/glad.c
 CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o: CMakeFiles/gpo_proyecto_final.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o -MF CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o.d -o CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o -c /home/juanito/Documents/UPM/GpO/GpO_Project/libs/glad/src/glad.c
 
 CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.i: cmake_force
@@ -113,6 +197,12 @@ CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.s: cmake_force
 
 # Object files for target gpo_proyecto_final
 gpo_proyecto_final_OBJECTS = \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o" \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o" \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o" \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o" \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o" \
+"CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o" \
 "CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o" \
 "CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o" \
 "CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o"
@@ -120,6 +210,12 @@ gpo_proyecto_final_OBJECTS = \
 # External object files for target gpo_proyecto_final
 gpo_proyecto_final_EXTERNAL_OBJECTS =
 
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui.cpp.o
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_draw.cpp.o
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_widgets.cpp.o
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/imgui_tables.cpp.o
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_glfw.cpp.o
+bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/imgui/backends/imgui_impl_opengl3.cpp.o
 bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/src/GPO_proyecto_final.cpp.o
 bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/src/GPO_aux.cpp.o
 bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/libs/glad/src/glad.c.o
@@ -130,7 +226,7 @@ bin/gpo_proyecto_final: libs/glfw/src/libglfw3.a
 bin/gpo_proyecto_final: /usr/lib/x86_64-linux-gnu/librt.so
 bin/gpo_proyecto_final: /usr/lib/x86_64-linux-gnu/libm.so
 bin/gpo_proyecto_final: CMakeFiles/gpo_proyecto_final.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable bin/gpo_proyecto_final"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/juanito/Documents/UPM/GpO/GpO_Project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable bin/gpo_proyecto_final"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gpo_proyecto_final.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

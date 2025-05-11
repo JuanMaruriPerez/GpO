@@ -90,20 +90,6 @@ const char* tes_shader = GLSL(
 
         // Solo aplicamos relieve si heightFactor > 1.0
         float effectiveFactor = max(heightFactor- 1.0, 0.0);
-        // TO-DO Permitir interactivamente formulas matematicas
-        // 1/x : float displacement = 1/(tan(interpolatedPos.x * interpolatedPos.y)) * effectiveFactor;
-        // float displacement = (sin(interpolatedPos.x * 3.0) *  cos(interpolatedPos.y * 3.0) + 0.5 * sin(length(interpolatedPos.xy) * 5.0)) * log(effectiveFactor + 1.0);       interpolatedPos.z += displacement;
-        /*
-        float r = length(interpolatedPos.xy);
-        float angle = atan(interpolatedPos.y, interpolatedPos.x);
-        float scale = 0.3 + 0.7 * sin(r * 5.0 + angle * 3.0);
-
-        float f = pow(sin(interpolatedPos.x * interpolatedPos.y), 2.0) * (1.0 / log(effectiveFactor + 1.1));
-
-        interpolatedPos.x += cos(r * 10.0) * f * 0.2;
-        interpolatedPos.y += sin(r * 10.0 + angle) * f * 0.2;
-        interpolatedPos.z += scale * f;
-        */
 
         float factor = effectiveFactor + 1.0;
         float base = interpolatedPos.x * interpolatedPos.y;
@@ -121,36 +107,6 @@ const char* tes_shader = GLSL(
         gl_Position = interpolatedPos;
     }
 );
-/*
-const char* tes_shader = GLSL(
-    layout(triangles, equal_spacing, cw) in;
-
-    uniform float heightFactor;
-
-    
-   void main() {
-    // gl_TessCoord = (u, v, w) baricéntricas dentro del triángulo
-    vec3 bary = gl_TessCoord;
-
-    // Interpolación lineal de posición en base a coordenadas baricéntricas
-    vec4 p0 = gl_in[0].gl_Position;
-    vec4 p1 = gl_in[1].gl_Position;
-    vec4 p2 = gl_in[2].gl_Position;
-
-    // Interpolación de la posición final
-    vec4 interpolatedPos = bary.x * p0 + bary.y * p1 + bary.z * p2;
-
-    // Relieve: podemos usar la coordenada 'x' del UV interpolado o el valor 'y' o cualquier otra.
-    // Aquí estamos aplicando un desplazamiento en la dirección Z para simular un relieve.
-    float displacement = sin(interpolatedPos.x * 10.0) * heightFactor;  // Usamos 'x' como ejemplo
-    interpolatedPos.z += displacement;  // Modificamos solo la componente Z para el relieve
-
-    // Asignamos la posición final después del relieve
-    gl_Position = interpolatedPos;
-}
-);
-*/
-
 
 const char* fragment_shader = GLSL(
     in vec2 vUV_TES;  // Recibimos las coordenadas UV interpoladas desde el TES
@@ -158,33 +114,10 @@ const char* fragment_shader = GLSL(
 
     void main() {
         // Color fijo para ver el relieve (por ejemplo, un color gris claro)
-        FragColor = vec4(0.7, 0.7, 0.7, 1.0);  // Color gris para simular un relieve
+        FragColor = vec4(0.0, 0.5, 1.0, 1.0);  // Color gris para simular un relieve
     }
 );
 
-
-
-
-/*
-const char* fragment_shader = GLSL(
-    in vec2 uv;
-    out vec4 FragColor;
-
-    uniform sampler2D textura;
-
-    void main() {
-        // Interpolación entre azul eléctrico y púrpura según la coordenada Y
-        vec3 color1 = vec3(0.0, 0.5, 1.0); // Azul eléctrico
-        vec3 color2 = vec3(0.8, 0.5, 1.0); // Violeta intenso
-
-        // Gradiente vertical con distorsión irregular
-        float factor = fract(uv.y * 4.0 + sin(uv.x * 10.0) * 0.1);
-
-        vec3 finalColor = mix(color1, color2, factor);
-        FragColor = vec4(finalColor, 1.0);
-    }
-);
-*/
 
 
 
@@ -543,9 +476,9 @@ static void KeyCallback(GLFWwindow* window, int key, int code, int action, int m
         }
         if (action == GLFW_PRESS || action == GLFW_REPEAT) {
             if (key == GLFW_KEY_A) {
-                heightFactor += 1.0f;  // Aumentar el factor de teselación
+                heightFactor += 0.5f;  // Aumentar el factor de teselación
             } else if (key == GLFW_KEY_Z) {
-                heightFactor = std::max(1.0f,  heightFactor - 1.0f);  // Disminuir el factor de teselación, mínimo 1
+                heightFactor = std::max(1.0f,  heightFactor - 0.5f);  // Disminuir el factor de teselación, mínimo 1
             }
         
             // Actualiza el uniform en tiempo real

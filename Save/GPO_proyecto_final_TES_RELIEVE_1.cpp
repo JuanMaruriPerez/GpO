@@ -74,60 +74,26 @@ const char* tcs_shader = GLSL(
 );
 
 
+
+
 const char* tes_shader = GLSL(
     layout(triangles, equal_spacing, cw) in;
 
     uniform float heightFactor;
 
+    /*
     void main() {
+        // gl_TessCoord = (u, v, w) baricéntricas dentro del triángulo
         vec3 bary = gl_TessCoord;
-
-        vec4 p0 = gl_in[0].gl_Position;
-        vec4 p1 = gl_in[1].gl_Position;
-        vec4 p2 = gl_in[2].gl_Position;
-
-        vec4 interpolatedPos = bary.x * p0 + bary.y * p1 + bary.z * p2;
-
-        // Solo aplicamos relieve si heightFactor > 1.0
-        float effectiveFactor = max(heightFactor- 1.0, 0.0);
-        // TO-DO Permitir interactivamente formulas matematicas
-        // 1/x : float displacement = 1/(tan(interpolatedPos.x * interpolatedPos.y)) * effectiveFactor;
-        // float displacement = (sin(interpolatedPos.x * 3.0) *  cos(interpolatedPos.y * 3.0) + 0.5 * sin(length(interpolatedPos.xy) * 5.0)) * log(effectiveFactor + 1.0);       interpolatedPos.z += displacement;
-        /*
-        float r = length(interpolatedPos.xy);
-        float angle = atan(interpolatedPos.y, interpolatedPos.x);
-        float scale = 0.3 + 0.7 * sin(r * 5.0 + angle * 3.0);
-
-        float f = pow(sin(interpolatedPos.x * interpolatedPos.y), 2.0) * (1.0 / log(effectiveFactor + 1.1));
-
-        interpolatedPos.x += cos(r * 10.0) * f * 0.2;
-        interpolatedPos.y += sin(r * 10.0 + angle) * f * 0.2;
-        interpolatedPos.z += scale * f;
-        */
-
-        float factor = effectiveFactor + 1.0;
-        float base = interpolatedPos.x * interpolatedPos.y;
-
-        // Desplazamiento en Z con patrón de tan + log (relieve intenso y ondulado)
-        float dz = 1.0 / (tan(base * 0.5) + 0.001) * log(factor);
-
-        // Desplazamiento en Y con forma sinusoidal suave y simétrica
-        float dy = 0.2 * sin(base * 3.0) * log(factor + 1.0);
-
-        // Aplicamos los desplazamientos
-        interpolatedPos.z += dz;
-        interpolatedPos.y += dy;
-
-        gl_Position = interpolatedPos;
-    }
-);
-/*
-const char* tes_shader = GLSL(
-    layout(triangles, equal_spacing, cw) in;
-
-    uniform float heightFactor;
-
     
+        // Interpolación lineal de posición en base a coordenadas baricéntricas
+        vec4 p0 = gl_in[0].gl_Position ;
+        vec4 p1 = gl_in[1].gl_Position ;
+        vec4 p2 = gl_in[2].gl_Position ;
+    
+        gl_Position = bary.x * p0 + bary.y * p1 + bary.z * p2;
+    }
+    */
    void main() {
     // gl_TessCoord = (u, v, w) baricéntricas dentro del triángulo
     vec3 bary = gl_TessCoord;
@@ -149,7 +115,7 @@ const char* tes_shader = GLSL(
     gl_Position = interpolatedPos;
 }
 );
-*/
+
 
 
 const char* fragment_shader = GLSL(
@@ -384,9 +350,9 @@ void init_scene()
     
 
 	//glUseProgram(prog);   
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
     //glCullFace(GL_FRONT);
-    //glCullFace(GL_BACK);
+    glCullFace(GL_BACK);
     //glDisable(GL_CULL_FACE);  
     //glEnable(GL_DEPTH_TEST);
 
